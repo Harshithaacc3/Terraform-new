@@ -2,22 +2,14 @@ provider "aws" {
   region = var.aws_region
 }
 
-# ---------------------------
-# VPC
-# ---------------------------
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
-  enable_dns_support   = true
-  enable_dns_hostnames = true
 
   tags = {
     Name = var.vpc_name
   }
 }
 
-# ---------------------------
-# Public Subnet
-# ---------------------------
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr
@@ -29,9 +21,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-# ---------------------------
-# Internet Gateway
-# ---------------------------
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
@@ -40,9 +29,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# ---------------------------
-# Route Table
-# ---------------------------
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main.id
 
@@ -62,9 +48,6 @@ resource "aws_route_table_association" "public_assoc" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# ---------------------------
-# Security Group
-# ---------------------------
 resource "aws_security_group" "ec2_sg" {
   name   = "${var.vpc_name}-sg"
   vpc_id = aws_vpc.main.id
@@ -85,9 +68,6 @@ resource "aws_security_group" "ec2_sg" {
   }
 }
 
-# ---------------------------
-# EC2 Instance
-# ---------------------------
 resource "aws_instance" "ec2" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
