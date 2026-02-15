@@ -3,14 +3,14 @@ variable "aws_region" {
   default     = "ap-south-1"
 }
 
-variable "vpc_cidr" {
-  description = "CIDR block for VPC"
-  default     = "10.0.0.0/16"
-}
-
 variable "vpc_name" {
   description = "VPC Name"
   default     = "terraform-vpc"
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for VPC"
+  default     = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidr" {
@@ -31,12 +31,12 @@ variable "az" {
 variable "allowed_ssh_cidr" {
   description = "CIDR blocks allowed for SSH"
   type        = list(string)
-  default     = ["0.0.0.0/0"] # Restrict in production
+  default     = ["0.0.0.0/0"] 
 }
 
 variable "ami_id" {
   description = "AMI ID for EC2"
-  default     = "ami-0f5ee92e2d63afc18" # Amazon Linux 2 (Mumbai)
+  default     = "ami-0317b0f0a0144b137" 
 }
 
 variable "instance_type" {
@@ -46,7 +46,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "EC2 Key Pair Name"
-  default     = "your-keypair-name"
+  default     = "devops3key"
 }
 
 variable "instance_name" {
